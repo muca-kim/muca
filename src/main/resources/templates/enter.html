@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>환영합니다!</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div style="text-align: center; padding: 10%">
+        <header th:replace="common/login_label"></header>
+        <div class="jumbotron">
+            <h1>편의보감</h1>
+            <p>원하시는 라면이 있으신가요?</p>
+            <div class="btn-group" role="group" aria-label="...">
+                <button type="button" id="enter_login_button" class="btn btn-info" id="">로그인</button>
+                <button type="button" id="enter_guest_button" class="btn btn-info" id="">게스트</button>
+            </div>
+        </div>
+        
+    </div>
+    
+    <script>
+        $(function(){
+            $("#enter_login_button").click(function(){
+                $('#login_modal').modal('show');
+            });
+            
+            $("#enter_guest_button").click(function(){
+                location.href="/mainController";
+            })
+
+
+
+
+
+        });
+    </script>
+</body>
+</html>

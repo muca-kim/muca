@@ -1,24 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>환영합니다!</title>
+    <title>로그인</title>
     <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
     <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="/script/xhr.js"></script>
 </head>
 <body>
-    <div style="text-align: center; padding: 10%">
-        <div class="jumbotron">
-                <h1>편의보감</h1>
-                <p>원하시는 라면이 있으신가요?</p>
-                <div class="btn-group" role="group" aria-label="...">
-                    <button type="button" id="login_button" class="btn btn-info" id="">로그인</button>
-                    <button type="button" id="guest_button" class="btn btn-info" id="">게스트</button>
-                    </div>
-            </div>
-    </div>
+    <header th:fragment="login_label">
+        <h1>으아아아아아아</h1>
+        <button type="button" id="login" class="btn btn-primary">로그인</button>
+    </header>
 
     <!-- modal 영역 -->
     <div class="modal fade" id="login_modal">
@@ -42,7 +37,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-              <button type="button" id="" class="btn btn-primary">로그인</button>
+              <button type="button" id="login" class="btn btn-primary">로그인</button>
               <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
             </div>
           </div><!-- /.modal-content -->
@@ -52,9 +47,32 @@
     
     <script>
         $(function(){
+            'use strict'
+
+            const x = new XHR();
+
             $("#login_button").on("click", function(){
                 $('#login_modal').modal('show');
             });
+
+
+            $("#login_request").on("click", function(){
+                
+
+                // $.ajax({
+                //     type:"POST",
+                //     url:"",
+                //     data:"",
+                //     dataType:"",
+                //     success: function(x){
+
+                //     },
+                //     error: function(xhr, status, error){
+
+                //     }
+                // });
+            });
+            
         });
     </script>
 </body>
