@@ -1,18 +1,22 @@
 package com.project.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Builder;
 import lombok.Getter;
 
 @Entity
 @Table(name = "user")
-public class UserEntity{
+public class UserEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
+    @Getter
     private String id;
-    @Getter    
+    @Getter
     private String password;
     @Getter
     private String name;
@@ -21,10 +25,9 @@ public class UserEntity{
     @Getter
     private Integer role;
 
-    protected UserEntity(){
+    protected UserEntity() {
     }
 
-    @Builder
     protected UserEntity(String id, String password, String name, String email, Integer role) {
         this.id = id;
         this.password = password;
@@ -32,5 +35,5 @@ public class UserEntity{
         this.email = email;
         this.role = role;
     }
- 
+
 }

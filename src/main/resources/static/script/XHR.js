@@ -4,13 +4,13 @@ class XHR{
         this.xhr = xhr;
     }
 
-    get(url){
+    get(url, json){
         fetch(url, json).then(res => {
             return res.json();
         });
     }
 
-    post(url){
+    post(url, json){
         fetch(url, {
             method: "POST"
         }).then(res => {
