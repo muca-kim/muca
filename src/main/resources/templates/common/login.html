@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,27 +9,29 @@
     <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
     <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="/static/script/XHR.js"></script>
-    
+
 </head>
+
 <body>
     <div th:fragment="login_label">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                <a class="navbar-brand" href="#">
-                    <!-- <img alt="Brand" src="..."> -->
-                </a>
+                    <a class="navbar-brand" href="#">
+                        <!-- <img alt="Brand" src="..."> -->
+                    </a>
                     <button type="button" id="login_button" class="btn btn-info" style="float: right;">로그인</button>
                 </div>
             </div>
         </nav>
-            <!-- modal 영역 -->
-            <div class="modal fade" id="login_modal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+        <!-- modal 영역 -->
+        <div class="modal fade" id="login_modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
                     <div class="modal-header">
-                            <h4 class="modal-title">로그인</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">로그인</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
                         <form>
@@ -38,26 +41,28 @@
                             </div>
                             <div class="form-group">
                                 <label for="textarea_password" class="control-label">비밀번호</label>
-                                <input type="text" class="form-control" id="textarea_password">
+                                <input type="password" class="form-control" id="textarea_password">
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="entry_request_modal" class="btn btn-default" style="float: left;">회원가입</button>
+                        <button type="button" id="entry_request_modal" class="btn btn-default"
+                            style="float: left;">회원가입</button>
                         <button type="button" id="login" class="btn btn-info">로그인</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
                     </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
-            <!-- modal 영역 -->
-            <div class="modal fade" id="entry_modal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+        <!-- modal 영역 -->
+        <div class="modal fade" id="entry_modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
                     <div class="modal-header">
-                            <h4 class="modal-title">회원가입</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">회원가입</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
                         <form>
@@ -71,7 +76,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="entry_password" class="control-label">비밀번호</label>
-                                <input type="text" class="form-control" id="entry_password">
+                                <input type="password" class="form-control" id="entry_password">
                             </div>
                             <div class="form-group">
                                 <label for="entry_password" class="control-label">이메일</label>
@@ -83,22 +88,22 @@
                         <button type="button" id="entry_request" class="btn btn-default">신청</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
                     </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-      
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
-      <script>
-          const x = new XHR();
-            $("#login_button").on("click", function(){
+
+        <script>
+            const x = new XHR();
+            $("#login_button").on("click", function () {
                 $('#login_modal').modal('show');
             });
-            
-            $("#entry_request_modal").on("click", function(){
+
+            $("#entry_request_modal").on("click", function () {
                 $('#entry_modal').modal('show');
             })
-            
-            var createLoginData = function(){
+
+            var createLoginData = function () {
                 var userId = $("#textarea_id").val();
                 var password = $("#textarea_password").val();
                 return {
@@ -107,27 +112,27 @@
                 }
             }
 
-            var createEntryData = function(){
+            var createEntryData = function () {
                 var userId = $("#entry_id").val();
                 var password = $("#entry_password").val();
                 var name = $("#entry_name").val();
                 var email = $("#entry_email").val();
                 return {
-                    "id":userId,
-                    "password":password,
-                    "name":name,
-                    "email":email
+                    "id": userId,
+                    "password": password,
+                    "name": name,
+                    "email": email
                 }
             }
-            $("#login_request").on("click", function(){
-                x.get("/userController", createLoginData());
-            });
-            $("#entry_request").on("click", function(){
-                x.post("/userController", JSON.stringify(createEntryData()));
+            // $("#login_request").on("click", function(){
+            //     x.get("/userController", createLoginData());
+            // });
+            $("#entry_request").on("click", function () {
+                x.post("/addUser", JSON.stringify(createEntryData()));
             })
-
         </script>
     </div>
 
 </body>
+
 </html>

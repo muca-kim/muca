@@ -1,18 +1,19 @@
-class XHR{
+class XHR {
 
-    constructor(xhr){
+    constructor(xhr) {
         this.xhr = xhr;
     }
 
-    get(url, json){
+    get(url, json) {
         fetch(url, json).then(res => {
             return res.json();
         });
     }
 
-    post(url, json){
+    post(url, json) {
         fetch(url, {
-            method: "POST"
+            method: "POST",
+            body: json
         }).then(res => {
             return res.json();
         });

@@ -6,7 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "user")
@@ -23,11 +25,13 @@ public class UserEntity implements Serializable {
     @Getter
     private String email;
     @Getter
+    @Setter
     private Integer role;
 
     protected UserEntity() {
     }
 
+    @Builder
     protected UserEntity(String id, String password, String name, String email, Integer role) {
         this.id = id;
         this.password = password;

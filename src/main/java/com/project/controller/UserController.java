@@ -6,6 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.project.common.Constants;
 import com.project.entity.UserEntity;
 import com.project.repository.UserRepository;
 
@@ -26,12 +27,14 @@ public class UserController {
         return "";
     }
 
-    @RequestMapping(value = "/userController", method = RequestMethod.POST)
+    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public void addUser(@RequestBody String json) {
         ObjectMapper mappaer = new ObjectMapper();
         try {
             UserEntity user = mappaer.readValue(json, UserEntity.class);
             System.out.println("userId = " + user.getId());
+            user.setRole(Constants.Role.PERSONAL.getValue());
+            userRepository.save(user);
 
         } catch (JsonParseException e) {
             // TODO Auto-generated catch block
