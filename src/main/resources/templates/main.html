@@ -1,27 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>메인 화면</title>
     <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
-    <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/popper.js/1.15.0/popper.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/script/XHR.js"></script>
 </head>
+
 <body>
-    <header th:replace="common/login :: login_label"></header>
-    <div>
+    <header th:replace="common/commonHeader :: header_label"></header>
+    <!-- 컨테이너 -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <a></a>
+            </div>
+            <div class="col-lg-3">
 
-        
+            </div>
+            <div class="col-lg-3">
+
+            </div>
+            <div class="col-lg-3">
+
+            </div>
+        </div>
+        <hr>
     </div>
+    <footer>
 
+    </footer>
 
-    
     <script>
-        $(function(){
-            
+        $(function () {
+
         });
     </script>
 </body>
+
 </html>

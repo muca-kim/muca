@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>로그인</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/popper.js/1.15.0/popper.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/script/XHR.js"></script>
+</head>
+
+<body th:fragment="header_label">
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <ul class="nav nav-pills" id="common_tab">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Main</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">근처 찾아보기</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                </ul>
+                <button type="button" id="login_button" class="btn btn-primary pull-right">로그인</button>
+            </div>
+        </nav>
+    </div>
+    <div th:replace="common/loginModal :: loginModalView"></div>
+
+    <script>
+        $(function () {
+            'use strict';
+            $("#common_tab").on("click", function () {
+                // e.preventdefault();
+                $(this).tab("show");
+            })
+
+
+        });
+    </script>
+</body>
+
+</html>

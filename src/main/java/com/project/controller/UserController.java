@@ -46,6 +46,11 @@ public class UserController {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public void login(@RequestBody String json) {
+        ObjectMapper mapper = new ObjectMapper();
 
     }
 }

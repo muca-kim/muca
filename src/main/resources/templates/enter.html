@@ -1,41 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>환영합니다!</title>
     <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
-    <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/popper.js/1.15.0/popper.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/script/XHR.js"></script>
 </head>
+
 <body>
     <div style="text-align: center; padding: 10%">
         <div class="jumbotron">
             <h1>편의보감</h1>
             <p>원하시는 라면이 있으신가요?</p>
-            <div class="btn-group" role="group" aria-label="...">
-                <button type="button" id="enter_login_button" class="btn btn-info" id="">로그인</button>
-                <button type="button" id="enter_guest_button" class="btn btn-info" id="">게스트</button>
+            <div class="btn-group" role="group" aria-label="">
+                <button type="button" id="login_button" class="btn btn-info">로그인</button>
+                <button type="button" id="enter_guest_button" class="btn btn-info">게스트</button>
             </div>
         </div>
-        
     </div>
-    
+
+    <div th:include="common/loginModal :: loginModalView"></div>
+
     <script>
-        $(function(){
-            $("#enter_login_button").click(function(){
-                $('#login_modal').modal('show');
-            });
-            
-            $("#enter_guest_button").click(function(){
-                location.href="/mainController";
+        $(function () {
+            'use strict';
+
+            $("#enter_guest_button").click(function () {
+                location.href = "/mainController";
             })
-
-
-
-
 
         });
     </script>
+
 </body>
+
 </html>
