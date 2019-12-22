@@ -18,13 +18,13 @@ public class UserEntity implements Serializable {
     /** 유저아이디 */
     @Id
     @Getter
-    private String id;
+    private String userId;
     /** 비밀번호 */
     @Getter
-    private String password;
+    private String userPassword;
     /** 유저이름 */
     @Getter
-    private String name;
+    private String userName;
     /** 이메일 */
     @Getter
     private String email;
@@ -37,10 +37,10 @@ public class UserEntity implements Serializable {
     }
 
     @Builder
-    protected UserEntity(String id, String password, String name, String email, Integer role) {
-        this.id = id;
-        this.password = password;
-        this.name = name;
+    public UserEntity(String userId, String userPassword, String userName, String email, Integer role) {
+        this.userId = userId;
+        this.userPassword = userPassword;
+        this.userName = userName;
         this.email = email;
         this.role = role;
     }

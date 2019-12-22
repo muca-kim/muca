@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>환영합니다!</title>
+    <title>관리자 화면</title>
     <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css">
     <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/popper.js/1.15.0/popper.min.js"></script>
@@ -13,30 +13,34 @@
 </head>
 
 <body>
-    <div style="text-align: center; padding: 10%">
-        <div class="jumbotron">
-            <h1>편의보감</h1>
-            <p>원하시는 라면이 있으신가요?</p>
-            <div class="btn-group" role="group" aria-label="">
-                <button type="button" id="login_button" class="btn btn-info">로그인</button>
-                <button type="button" id="enter_guest_button" class="btn btn-info">게스트</button>
+    <header th:replace="common/commonHeader :: header_label"></header>
+    <!-- 컨테이너 -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <button type="button" id=""></button>
+            </div>
+            <div class="col-lg-3">
+
+            </div>
+            <div class="col-lg-3">
+
+            </div>
+            <div class="col-lg-3">
+
             </div>
         </div>
+        <hr>
     </div>
+    <footer>
 
-    <div th:include="common/loginModal :: loginModalView"></div>
+    </footer>
 
     <script>
         $(function () {
-            'use strict';
-
-            $("#enter_guest_button").click(function () {
-                location.href = "/mainController";
-            })
 
         });
     </script>
-
 </body>
 
 </html>

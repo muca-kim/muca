@@ -32,7 +32,7 @@ public class UserController {
         ObjectMapper mappaer = new ObjectMapper();
         try {
             UserEntity user = mappaer.readValue(json, UserEntity.class);
-            System.out.println("userId = " + user.getId());
+            System.out.println("userId = " + user.getUserId());
             user.setRole(Constants.Role.PERSONAL.getValue());
             userRepository.save(user);
 
@@ -48,9 +48,9 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public void login(@RequestBody String json) {
-        ObjectMapper mapper = new ObjectMapper();
+    // @RequestMapping(value = "/login", method = RequestMethod.POST)
+    // public void login(@RequestBody String json) {
+    // ObjectMapper mapper = new ObjectMapper();
 
-    }
+    // }
 }
