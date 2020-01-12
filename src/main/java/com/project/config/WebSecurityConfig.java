@@ -46,33 +46,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    // @Override
-    // protected void configure(AuthenticationManagerBuilder auth) throws Exception
-    // {
-    // auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
-    // }
 
-    // ログインを要請したユーザーが登録されているかいなかを確認するクラス
+    
     @Configuration
     protected static class AuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
         @Autowired
         UserService userService;
 
-        /**
-         * 認証済みのオブジェクトの生成
-         * 
-         * @param auth 認証を行うインスタンス
-         * @return void
-         */
         @Override
         public void init(AuthenticationManagerBuilder auth) throws Exception {
-            // 認証するユーザーを設定する
+            // 인증할 유저 설정
             auth.userDetailsService(userService)
-                    // 入力値をmd5でハッシュ化した値でパスワード認証を行う
+                    // 패스워드 인코딩
                     .passwordEncoder(new BCryptPasswordEncoder());
-
         }
     }
 
+    
 }
