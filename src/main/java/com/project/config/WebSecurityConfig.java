@@ -46,8 +46,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-
-    
     @Configuration
     protected static class AuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
@@ -63,5 +61,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         }
     }
 
-    
 }
