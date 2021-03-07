@@ -13,6 +13,7 @@
 </head>
 
 <body>
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
     <!-- modal 영역 -->
     <div class="modal fade" id="login_modal">
         <div class="modal-dialog">
@@ -85,7 +86,7 @@
     <script>
         $(function () {
             'use strict';
-            const x = new XHR();
+
             $("#login_button").on("click", function () {
                 $('#login_modal').modal('show');
             });
@@ -109,15 +110,15 @@
                 var name = $("#entry_name").val();
                 var email = $("#entry_email").val();
                 return {
-                    "id": userId,
-                    "password": password,
-                    "name": name,
+                    "userId": userId,
+                    "userPassword": password,
+                    "userName": name,
                     "email": email
                 }
             };
 
             $("#entry_request").on("click", function () {
-                x.post("/addUser", JSON.stringify(createEntryData()));
+                post("/addUser", JSON.stringify(createEntryData()));
             });
 
             // $("#login").on("click", function () {

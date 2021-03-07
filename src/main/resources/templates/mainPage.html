@@ -16,8 +16,9 @@
     <header th:replace="common/commonHeader :: header_label"></header>
     <!-- 컨테이너 -->
     <div class="container">
-        <div class="row">
-            <div class="col-lg-3">
+        <div class="productArea">
+            <!-- <hr> -->
+            <!-- <div class="col-lg-3">
                 <a></a>
             </div>
             <div class="col-lg-3">
@@ -28,9 +29,24 @@
             </div>
             <div class="col-lg-3">
 
-            </div>
+            </div> -->
         </div>
-        <hr>
+        <div class="pageBtnArea">
+            <nav>
+                <ul class="pagination pageBtn">
+                    <li id="preBtnLi">
+                        <a href="#" id="previousBtn" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" id="nextBtn" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
     <footer>
 
@@ -38,6 +54,35 @@
 
     <script>
         $(function () {
+            let createPageBtn = function (pageList) {
+                pageList.forEach((page) => {
+                    let li =
+                        `<li><a id='page${page}' href='#'><span aria-hidden="true">${page}</span></a></li>`;
+                    $("#preBtnLi").after(li);
+                })
+            }
+
+            let getProductList = function (requestData) {
+                let promise = post("/getProduct", requestData);
+                promise.then(function (res) {
+                    createPageBtn(res.page);
+                })
+
+                // res.pageList.forEach((page) => {
+
+                // });
+
+            }
+
+            let createReqData = function (page, unit) {
+                let data = {
+                    'page': page,
+                    'unit': unit
+                }
+                return JSON.stringify(data);
+            }
+
+            getProductList(createReqData(0, 10));
 
         });
     </script>

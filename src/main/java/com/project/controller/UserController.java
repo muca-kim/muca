@@ -29,21 +29,17 @@ public class UserController {
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public void addUser(@RequestBody String json) {
-        ObjectMapper mappaer = new ObjectMapper();
+        ObjectMapper mapper = new ObjectMapper();
         try {
-            UserEntity user = mappaer.readValue(json, UserEntity.class);
+            UserEntity user = mapper.readValue(json, UserEntity.class);
             System.out.println("userId = " + user.getUserId());
             user.setRole(Constants.Role.PERSONAL.getValue());
             userRepository.save(user);
-
         } catch (JsonParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (JsonMappingException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

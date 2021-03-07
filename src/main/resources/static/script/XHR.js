@@ -1,22 +1,29 @@
-class XHR {
 
-    constructor(xhr) {
-        this.xhr = xhr;
-    }
 
-    get(url, json) {
-        fetch(url, json).then(res => {
-            return res.json();
-        });
-    }
+get = async function (url, json) {
+    url += `?json=${json}`;
+    const response = await fetch(url, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    const obj = JSON.parse(await response.text());
+    return obj;
+};
 
-    post(url, json) {
-        fetch(url, {
-            method: "POST",
-            body: json
-        }).then(res => {
-            return res.json();
-        });
-    }
-}
+post = async function (url, json) {
+    let csrf = $("input[name='_csrf']").val();
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrf
+        },
+        body: json
+    });
+    const obj = JSON.parse(await response.text());
+    return obj;
+};
+
 // export default this.XHR;
