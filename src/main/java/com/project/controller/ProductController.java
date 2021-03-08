@@ -33,14 +33,17 @@ public class ProductController {
             ProductRequest request = mapper.readValue(json, ProductRequest.class);
             int unit = request.getUnit();
             int page = request.getPage() * unit;
-            List<Integer> pageList = new ArrayList<>();
+            int allPage = 0;
             int allProduct = productService.countAllProduct();
-            int idx = 0;
-            do {
-                pageList.add(++idx);
-            } while (allProduct / unit > idx);
+
+            if (allProduct % unit == 0) {
+                allPage = allProduct / unit;
+            } else {
+                allPage = allProduct / unit + 1;
+            }
+
             List<ProductEntity> productList = productService.getProductByPage(page, unit);
-            response.setPage(pageList);
+            response.setPage(allPage);
             response.setProductList(productList);
             return mapper.writeValueAsString(response);
         } catch (IOException e) {

@@ -8,7 +8,7 @@ import lombok.Data;
 public class ProductResponse {
 
     /** 페이지 */
-    private List<Integer> page;
+    private int page;
     /** 상품리스트 */
     private List<ProductEntity> productList;
 }

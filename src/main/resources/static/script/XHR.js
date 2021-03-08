@@ -1,5 +1,3 @@
-
-
 get = async function (url, json) {
     url += `?json=${json}`;
     const response = await fetch(url, {
@@ -25,5 +23,3 @@ post = async function (url, json) {
     const obj = JSON.parse(await response.text());
     return obj;
 };
-
-// export default this.XHR;

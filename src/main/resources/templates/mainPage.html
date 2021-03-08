@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>메인 화면</title>
-    <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/static/css/common.css" />
+    <!-- javascript -->
     <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/popper.js/1.15.0/popper.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -16,7 +19,8 @@
     <header th:replace="common/commonHeader :: header_label"></header>
     <!-- 컨테이너 -->
     <div class="container">
-        <div class="productArea">
+
+        <div class="productArea m-3">
             <!-- <hr> -->
             <!-- <div class="col-lg-3">
                 <a></a>
@@ -31,21 +35,33 @@
 
             </div> -->
         </div>
+        <hr>
         <div class="pageBtnArea">
-            <nav>
-                <ul class="pagination pageBtn">
-                    <li id="preBtnLi">
-                        <a href="#" id="previousBtn" aria-label="Previous">
+            <nav class="btnAreaComponent">
+                <ul class="pagination pageBtn pagination-sm">
+                    <li id="preBtnLi" class="page-item">
+                        <a class="page-link" href="#" id="previousBtn" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#" id="nextBtn" aria-label="Next">
+                    <li class="page-item">
+                        <a class="page-link" href="#" id="nextBtn" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
                 </ul>
             </nav>
+            <div class="btnAreaComponent">
+                <select id="pageUnit" class="selectpicker">
+                    <option>10</option>
+                    <option>20</option>
+                    <option>30</option>
+                    <option>40</option>
+                    <option>50</option>
+                </select>
+
+            </div>
+
         </div>
     </div>
     <footer>
@@ -54,27 +70,43 @@
 
     <script>
         $(function () {
-            let createPageBtn = function (pageList) {
-                pageList.forEach((page) => {
+            let pageItemCount = 0;
+
+            const createPageBtn = function (allPage) {
+                for (var i = allPage; i > 0; i--) {
                     let li =
-                        `<li><a id='page${page}' href='#'><span aria-hidden="true">${page}</span></a></li>`;
+                        `<li class='page-item'><a id='page${i}' class='page-link' href='#'><span aria-hidden="true">${i}</span></a></li>`;
                     $("#preBtnLi").after(li);
-                })
+                }
             }
 
-            let getProductList = function (requestData) {
+            const createProductList = function (pList) {
+                if (pList) {
+                    let idx = 0;
+                    pList.forEach(p => {
+                        // <img src="images/200x200.png" alt="My Image">
+                        let image = `<img class='producImg' src='/images/${p.productImg}'></img>`;
+                        $(".productArea").append(image);
+                        if (++idx > 3) {
+                            $(".productArea").append(`<hr>`);
+                            idx = 0;
+                        }
+                    })
+                }
+
+            }
+
+            const getProductList = function (requestData) {
                 let promise = post("/getProduct", requestData);
                 promise.then(function (res) {
+                    // $("#pageUnit").val();
+                    pageItemCount = res.productList.length;
                     createPageBtn(res.page);
+                    createProductList(res.productList);
                 })
-
-                // res.pageList.forEach((page) => {
-
-                // });
-
             }
 
-            let createReqData = function (page, unit) {
+            const createReqData = function (page, unit) {
                 let data = {
                     'page': page,
                     'unit': unit
@@ -83,6 +115,21 @@
             }
 
             getProductList(createReqData(0, 10));
+
+            $("#pageUnit").change(function () {
+                let unit = $("pageUnit").text();
+                getProductList(createReqData(0, unit));
+            });
+
+            $(".pageBtn").on("click", function () {
+                $(this).addClass("active");
+            });
+
+            $(".pageBtn").change(function () {
+                let unit = $("pageUnit").text();
+                // let selectedPage = 
+                getProductList(createReqData(0, unit));
+            });
 
         });
     </script>

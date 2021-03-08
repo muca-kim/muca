@@ -1,4 +1,23 @@
-.adminPageButton{
-    width:200px;
-    
+.container {
+    text-align: center;
+}
+
+.producImg {
+    width: 13vw;
+    height: 35vh;
+    margin-left: 2vw;
+    margin-right: 2vw;
+}
+
+.adminPageButton {
+    width: 200px;
+
+}
+
+.pageBtnArea {
+    display: inline-block;
+}
+
+.btnAreaComponent {
+    display: inline-block;
 }
