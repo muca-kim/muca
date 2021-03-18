@@ -10,7 +10,7 @@
     <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/popper.js/1.15.0/popper.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/script/XHR.js"></script>
+    <script type="text/javascript" src="/static/script/FetchService.js"></script>
 </head>
 
 <body>
@@ -119,7 +119,7 @@
             };
 
             $("#entry_request").on("click", function () {
-                post("/addUser", JSON.stringify(createEntryData()));
+                requestPost("/addUser", JSON.stringify(createEntryData()));
             });
 
             // $("#login").on("click", function () {

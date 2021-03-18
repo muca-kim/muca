@@ -12,7 +12,7 @@
     <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/popper.js/1.15.0/popper.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/script/XHR.js"></script>
+    <script type="text/javascript" src="/static/script/FetchService.js"></script>
 </head>
 
 <body>
@@ -21,19 +21,7 @@
     <div class="container">
 
         <div class="productArea m-3">
-            <!-- <hr> -->
-            <!-- <div class="col-lg-3">
-                <a></a>
-            </div>
-            <div class="col-lg-3">
-
-            </div>
-            <div class="col-lg-3">
-
-            </div>
-            <div class="col-lg-3">
-
-            </div> -->
+            <!-- 상품영역 -->
         </div>
         <hr>
         <div class="pageBtnArea">
@@ -97,7 +85,7 @@
             }
 
             const getProductList = function (requestData) {
-                let promise = post("/getProduct", requestData);
+                let promise = requestPost("/getProduct", requestData);
                 promise.then(function (res) {
                     // $("#pageUnit").val();
                     pageItemCount = res.productList.length;
