@@ -27,6 +27,11 @@ public class UserController {
         return "";
     }
 
+    /**
+     * 새 유저를 등록함
+     * 
+     * @param json
+     */
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public void addUser(@RequestBody String json) {
         ObjectMapper mapper = new ObjectMapper();

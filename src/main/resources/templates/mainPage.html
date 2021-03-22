@@ -27,16 +27,7 @@
         <div class="pageBtnArea">
             <nav class="btnAreaComponent">
                 <ul class="pagination pageBtn pagination-sm">
-                    <li id="preBtnLi" class="page-item">
-                        <a class="page-link" href="#" id="previousBtn" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" id="nextBtn" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
+                    <!-- 페이지버튼 영역 -->
                 </ul>
             </nav>
             <div class="btnAreaComponent">
@@ -58,21 +49,41 @@
 
     <script>
         $(function () {
+            'use strict';
+
             let pageItemCount = 0;
 
+            // 페이지 버튼 생성
             const createPageBtn = function (allPage) {
+                $(".pageBtn").empty();
+                let pre = `<li id="preBtnLi" class="page-item">
+                        <a class="page-link" href="#" id="previousBtn" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>`;
+                $(".pageBtn").append(pre);
                 for (var i = allPage; i > 0; i--) {
                     let li =
                         `<li class='page-item'><a id='page${i}' class='page-link' href='#'><span aria-hidden="true">${i}</span></a></li>`;
                     $("#preBtnLi").after(li);
+                    if (i === 1) {
+                        $("#page1").parent().addClass("active");
+                    }
                 }
+                let post = `<li class="page-item">
+                        <a class="page-link" href="#" id="nextBtn" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>`;
+                $(".pageBtn").append(post);
             }
 
+            // 상품 리스트 생성
             const createProductList = function (pList) {
+                $(".productArea").empty();
                 if (pList) {
                     let idx = 0;
                     pList.forEach(p => {
-                        // <img src="images/200x200.png" alt="My Image">
                         let image = `<img class='producImg' src='/images/${p.productImg}'></img>`;
                         $(".productArea").append(image);
                         if (++idx > 3) {
@@ -84,40 +95,42 @@
 
             }
 
-            const getProductList = function (requestData) {
-                let promise = requestPost("/getProduct", requestData);
+            // 페이지별 상품 리스트를 가져옴
+            const getProductList = function (page, unit, pageBtnFlag) {
+                let url = `/getProduct?page=${page}&unit=${unit}`;
+                let promise = requestGet(url);
                 promise.then(function (res) {
-                    // $("#pageUnit").val();
                     pageItemCount = res.productList.length;
-                    createPageBtn(res.page);
                     createProductList(res.productList);
+                    if (pageBtnFlag) {
+                        createPageBtn(res.page);
+                    }
                 })
             }
 
-            const createReqData = function (page, unit) {
-                let data = {
-                    'page': page,
-                    'unit': unit
-                }
-                return JSON.stringify(data);
-            }
-
-            getProductList(createReqData(0, 10));
+            getProductList(0, 10, true);
 
             $("#pageUnit").change(function () {
-                let unit = $("pageUnit").text();
-                getProductList(createReqData(0, unit));
+                let unit = $("#pageUnit option:selected").val();
+                getProductList(0, unit, true);
             });
 
-            $(".pageBtn").on("click", function () {
-                $(this).addClass("active");
+            $(".pageBtn").on("click", function (e) {
+                $(".page-item").each(function () {
+                    $(this).removeClass("active");
+                });
+                let target = $(e.target).closest("li");
+                target.addClass("active");
+                let page = $(e.target).text() - 1;
+                let unit = $("#pageUnit option:selected").val();
+                getProductList(page, unit, false);
             });
 
-            $(".pageBtn").change(function () {
-                let unit = $("pageUnit").text();
-                // let selectedPage = 
-                getProductList(createReqData(0, unit));
-            });
+            // $(".pageBtn").change(function () {
+            //     let unit = $("pageUnit").text();
+            //     // let selectedPage = 
+            //     getProductList(0, unit); //FIXME:
+            // });
 
         });
     </script>

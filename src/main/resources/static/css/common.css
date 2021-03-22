@@ -21,3 +21,7 @@
 .btnAreaComponent {
     display: inline-block;
 }
+
+.productArea {
+    text-align: justify;
+}

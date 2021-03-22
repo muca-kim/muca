@@ -1,15 +1,12 @@
-requestGet = async function (url, json) {
-    url += `?json=${json}`;
+// get request : 조회처리
+requestGet = async function (url) {
     const response = await fetch(url, {
         method: "GET",
-        headers: {
-            'Content-Type': 'application/json'
-        }
     });
     const obj = JSON.parse(await response.text());
     return obj;
 };
-
+// get post : 등록처리
 requestPost = async function (url, json) {
     let csrf = $("input[name='_csrf']").val();
     const response = await fetch(url, {
@@ -23,7 +20,7 @@ requestPost = async function (url, json) {
     const obj = JSON.parse(await response.text());
     return obj;
 };
-
+// put request : 정정처리
 requestPut = async function (url, json) {
     let csrf = $("input[name='_csrf']").val();
     const response = await fetch(url, {
@@ -37,7 +34,7 @@ requestPut = async function (url, json) {
     const obj = JSON.parse(await response.text());
     return obj;
 }
-
+// delete request : 삭제처리
 requestDelete = async function (url, json) {
     let csrf = $("input[name='_csrf']").val();
     const response = await fetch(url, {
