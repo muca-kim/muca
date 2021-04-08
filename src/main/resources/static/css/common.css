@@ -2,7 +2,7 @@
     text-align: center;
 }
 
-.producImg {
+.productImg {
     width: 13vw;
     height: 35vh;
     margin-left: 2vw;
@@ -24,4 +24,9 @@
 
 .productArea {
     text-align: justify;
+}
+
+.productCap {
+    display: inline-block;
+    text-align: center;
 }

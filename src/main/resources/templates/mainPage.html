@@ -23,7 +23,6 @@
         <div class="productArea m-3">
             <!-- 상품영역 -->
         </div>
-        <hr>
         <div class="pageBtnArea">
             <nav class="btnAreaComponent">
                 <ul class="pagination pageBtn pagination-sm">
@@ -32,11 +31,11 @@
             </nav>
             <div class="btnAreaComponent">
                 <select id="pageUnit" class="selectpicker">
-                    <option>10</option>
-                    <option>20</option>
-                    <option>30</option>
-                    <option>40</option>
-                    <option>50</option>
+                    <option>12</option>
+                    <option>24</option>
+                    <option>36</option>
+                    <option>48</option>
+                    <option>60</option>
                 </select>
 
             </div>
@@ -84,8 +83,13 @@
                 if (pList) {
                     let idx = 0;
                     pList.forEach(p => {
-                        let image = `<img class='producImg' src='/images/${p.productImg}'></img>`;
-                        $(".productArea").append(image);
+                        let figure = $("<figure class='productCap'>");
+                        let image =
+                            `<img class='productImg' src='/images/${p.productImg}'></img><br>`;
+                        let caption =
+                            `<figcaption>${p.productName}</figcaption>`;
+                        figure.html(image + caption);
+                        $(".productArea").append(figure);
                         if (++idx > 3) {
                             $(".productArea").append(`<hr>`);
                             idx = 0;
@@ -108,7 +112,7 @@
                 })
             }
 
-            getProductList(0, 10, true);
+            getProductList(0, 12, true);
 
             $("#pageUnit").change(function () {
                 let unit = $("#pageUnit option:selected").val();
