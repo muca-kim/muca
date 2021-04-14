@@ -114,11 +114,13 @@
 
             getProductList(0, 12, true);
 
+            // 페이지 단위 변경 이벤트
             $("#pageUnit").change(function () {
                 let unit = $("#pageUnit option:selected").val();
                 getProductList(0, unit, true);
             });
 
+            // 페이지 버튼 클릭 이벤트
             $(".pageBtn").on("click", function (e) {
                 $(".page-item").each(function () {
                     $(this).removeClass("active");
@@ -129,12 +131,6 @@
                 let unit = $("#pageUnit option:selected").val();
                 getProductList(page, unit, false);
             });
-
-            // $(".pageBtn").change(function () {
-            //     let unit = $("pageUnit").text();
-            //     // let selectedPage = 
-            //     getProductList(0, unit); //FIXME:
-            // });
 
         });
     </script>
