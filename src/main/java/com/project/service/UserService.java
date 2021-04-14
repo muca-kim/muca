@@ -38,4 +38,29 @@ public class UserService implements UserDetailsService {
         return new User(userEntity.getUserId(), userEntity.getUserPassword(), authorities);
     }
 
+    public List<UserEntity> findAll() {
+        return userRepository.findAll();
+    }
+
+    public int deleteUser(String userId) {
+        try {
+            userRepository.deleteById(userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+        return 1;
+    }
+
+    public int updateUser(UserEntity user) {
+        try {
+            userRepository.save(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+
+        }
+        return 1;
+    }
+
 }

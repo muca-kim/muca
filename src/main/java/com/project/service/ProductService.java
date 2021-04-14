@@ -33,4 +33,25 @@ public class ProductService {
     public int countAllProduct() {
         return repository.countAllProduct();
     }
+
+    public int addProduct(ProductEntity product) {
+        try {
+            repository.save(product);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+        return 1;
+    }
+
+    public int deleteProduct(Integer productNo) {
+        try {
+            ProductEntity product = repository.findByProductNo();
+            repository.delete(product);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+        return 1;
+    }
 }
