@@ -18,5 +18,5 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
     @Query(value = "select count(*) from product_def", nativeQuery = true)
     int countAllProduct();
 
-    ProductEntity findByProductNo();
+    ProductEntity findByProductNo(Integer productNo);
 }

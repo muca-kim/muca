@@ -5,8 +5,9 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.entity.ProductEntity;
-import com.project.entity.ProductResponse;
+import com.project.model.ProductResponse;
 import com.project.service.ProductService;
+import com.project.utils.PageUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,16 +39,11 @@ public class ProductController {
         try {
             int intUnit = Integer.parseInt(unit);
             int intPage = Integer.parseInt(page) * intUnit;
-            int allPage = 0;
             // 등록된 모든 상품의 개수를 가져옴
             int allProduct = productService.countAllProduct();
-            // 페이지 수 계산
-            if (allProduct % intUnit == 0) {
-                allPage = allProduct / intUnit;
-            } else {
-                allPage = allProduct / intUnit + 1;
-            }
-            // DB에서 상품 목록을 가져옴
+            // 페이지수 가져옴
+            int allPage = PageUtils.getAllPage(allProduct, intUnit);
+            // 페이지에 해당하는 상품 목록을 가져옴
             List<ProductEntity> productList = productService.getProductByPage(intPage, intUnit);
             response.setPage(allPage);
             response.setProductList(productList);
