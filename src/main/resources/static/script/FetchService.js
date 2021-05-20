@@ -3,8 +3,17 @@ requestGet = async function (url) {
     const response = await fetch(url, {
         method: "GET",
     });
-    const obj = JSON.parse(await response.text());
-    return obj;
+    if (response.ok) {
+        const result = await response.text();
+        try {
+            const obj = JSON.parse(result);
+            return obj;
+        } catch (e) {
+            console.log("parsing error: " + result);
+        }
+    } else {
+        console.log("HTTP error: " + response.status);
+    }
 };
 // get post : 등록처리
 requestPost = async function (url, json) {
@@ -17,8 +26,17 @@ requestPost = async function (url, json) {
         },
         body: json
     });
-    const obj = JSON.parse(await response.text());
-    return obj;
+    if (response.ok) {
+        const result = await response.text();
+        try {
+            const obj = JSON.parse(result);
+            return obj;
+        } catch (e) {
+            console.log("parsing error: " + result);
+        }
+    } else {
+        console.log("HTTP error: " + response.status);
+    }
 };
 // put request : 정정처리
 requestPut = async function (url, json) {
@@ -31,8 +49,18 @@ requestPut = async function (url, json) {
         },
         body: json
     });
-    const obj = JSON.parse(await response.text());
-    return obj;
+    if (response.ok) {
+        const result = await response.text();
+        try {
+            const obj = JSON.parse(result);
+            return obj;
+        } catch (e) {
+            console.log("parsing error: " + result);
+        }
+    } else {
+        console.log("HTTP error: " + response.status);
+    }
+
 }
 // delete request : 삭제처리
 requestDelete = async function (url, json) {
@@ -45,6 +73,15 @@ requestDelete = async function (url, json) {
         },
         body: json
     });
-    const obj = JSON.parse(await response.text());
-    return obj;
+    if (response.ok) {
+        const result = await response.text();
+        try {
+            const obj = JSON.parse(result);
+            return obj;
+        } catch (e) {
+            console.log("parsing error: " + result);
+        }
+    } else {
+        console.log("HTTP error: " + response.status);
+    }
 }
