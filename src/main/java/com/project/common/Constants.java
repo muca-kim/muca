@@ -15,4 +15,18 @@ public class Constants {
         }
     }
 
+    public static enum Result {
+        FAIL(0), SUCCESS(1);
+
+        Integer value;
+
+        private Result(Integer num) {
+            this.value = num;
+        }
+
+        public Integer getValue() {
+            return value;
+        }
+    }
+
 }

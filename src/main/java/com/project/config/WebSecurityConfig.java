@@ -20,7 +20,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) {
-
         web.ignoring().antMatchers("/css/**", "/script/**", "/images/**");
     }
 
@@ -31,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").permitAll().and()
                 // 로그인 설정
                 .formLogin().loginPage("/login").usernameParameter("userId").passwordParameter("userPassword")
-                .defaultSuccessUrl("/mainPage").permitAll().and()
+                .defaultSuccessUrl("/").permitAll().and()
                 // 로그아웃
                 // .logout().logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
                 // .logoutSuccessUrl("/user/logout/result").invalidateHttpSession(true).and()

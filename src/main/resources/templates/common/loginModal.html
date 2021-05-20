@@ -5,12 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>로그인</title>
-    <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
-
-    <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" src="/webjars/popper.js/1.15.0/popper.min.js"></script>
-    <script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/script/FetchService.js"></script>
 </head>
 
 <body>
@@ -85,6 +79,8 @@
     </div><!-- /.modal -->
 
     <script>
+        const FAIL = 0;
+        const SUCCESS = 1;
         $(function () {
             'use strict';
 
@@ -121,12 +117,16 @@
             };
 
             $("#entry_request").on("click", function () {
-                requestPost("/addUser", JSON.stringify(createEntryData()));
+                let promise = requestPost("/addUser", JSON.stringify(createEntryData()));
+                promise.then(function (res) {
+                    if (res.result == SUCCESS) {
+                        alert("가입 성공");
+                        $("#entry_request_modal").modal('hide');
+                    }
+                }).catch(function (e) {
+                    alert("가입 실패");
+                });
             });
-
-            // $("#login").on("click", function () {
-            //     x.post("", JSON.stringify(createLoginData()));
-            // });
         });
     </script>
 
