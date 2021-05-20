@@ -12,28 +12,30 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "user")
+@Getter
+@Setter
 public class UserEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /** 유저아이디 */
     @Id
-    @Getter
     private String userId;
     /** 비밀번호 */
-    @Getter
     private String userPassword;
     /** 유저이름 */
-    @Getter
     private String userName;
     /** 이메일 */
-    @Getter
     private String email;
     /** 권한 */
-    @Getter
-    @Setter
     private Integer role;
 
     protected UserEntity() {
+    }
+
+    public UserEntity(String userId, String userName, String email) {
+        this.userId = userId;
+        this.userName = userName;
+        this.email = email;
     }
 
     @Builder

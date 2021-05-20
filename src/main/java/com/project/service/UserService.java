@@ -3,6 +3,7 @@ package com.project.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.project.entity.UserEntity;
 import com.project.repository.UserRepository;
@@ -38,8 +39,14 @@ public class UserService implements UserDetailsService {
         return new User(userEntity.getUserId(), userEntity.getUserPassword(), authorities);
     }
 
-    public List<UserEntity> findAll() {
-        return userRepository.findAll();
+    public List<UserEntity> findAllPersonalUser() {
+        return userRepository.findAllUser().stream()
+                .map(repo -> new UserEntity(repo.getUser_Id(), repo.getUser_Name(), repo.getEmail()))
+                .collect(Collectors.toList());
+    }
+
+    public List<UserEntity> findByUserName(String userName) {
+        return userRepository.findByUserName(userName);
     }
 
     public int deleteUser(String userId) {

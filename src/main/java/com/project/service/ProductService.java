@@ -1,7 +1,6 @@
 package com.project.service;
 
 import java.util.List;
-import java.util.Objects;
 
 import com.project.entity.ProductEntity;
 import com.project.error.NotFoundException;
@@ -30,6 +29,14 @@ public class ProductService {
      */
     public List<ProductEntity> getProductByPage(int page, int unit) {
         return repository.findByPage(page, unit);
+    }
+
+    public List<ProductEntity> findByProductNo(Integer productNo) {
+        return repository.findByProductNo(productNo);
+    }
+
+    public List<ProductEntity> findByProductName(String productName) {
+        return repository.findByProductName(productName);
     }
 
     /**
@@ -65,11 +72,11 @@ public class ProductService {
      */
     @Transactional
     public int deleteProduct(Integer productNo) {
-        ProductEntity product = repository.findByProductNo(productNo);
-        if (Objects.isNull(product)) {
+        List<ProductEntity> product = repository.findByProductNo(productNo);
+        if (product.isEmpty()) {
             throw new NotFoundException("not found user");
         }
-        repository.delete(product);
+        repository.delete(product.get(0));
         return 1;
     }
 }

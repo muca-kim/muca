@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 @Controller
 public class ProductController {
 
@@ -34,9 +37,15 @@ public class ProductController {
     @RequestMapping(value = "/getProduct", method = RequestMethod.GET)
     public String getProduct(@RequestParam(value = "page") String page, @RequestParam(value = "unit") String unit)
             throws IOException {
+        if (log.isDebugEnabled()) {
+            log.debug("Start getProduct");
+        }
         ObjectMapper mapper = new ObjectMapper();
         ProductResponse response = new ProductResponse();
         try {
+            if (log.isDebugEnabled()) {
+                log.debug("page={}, unit={}", page, unit);
+            }
             int intUnit = Integer.parseInt(unit);
             int intPage = Integer.parseInt(page) * intUnit;
             // 등록된 모든 상품의 개수를 가져옴
@@ -47,6 +56,12 @@ public class ProductController {
             List<ProductEntity> productList = productService.getProductByPage(intPage, intUnit);
             response.setPage(allPage);
             response.setProductList(productList);
+            if (log.isDebugEnabled()) {
+                log.debug("allPage={}, productList={}", allPage, productList.size());
+            }
+            if (log.isDebugEnabled()) {
+                log.debug("End getProduct");
+            }
             return mapper.writeValueAsString(response);
         } catch (IOException e) {
             throw new IOException();

@@ -5,13 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>관리자 화면</title>
+    <!-- css -->
     <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/static/css/common.css" />
-
+    <link rel="stylesheet" href="/static/css/datatables.css" />
+    <!-- javascript -->
     <script type="text/javascript" src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/script/datatables.js"></script>
     <script type="text/javascript" src="/webjars/popper.js/1.15.0/popper.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/script/FetchService.js"></script>
+
 
 
 </head>
@@ -21,27 +25,111 @@
     <!-- 컨테이너 -->
     <div class="container">
         <div class="row">
+        </div>
+        <div class="row">
             <div class="col-lg-3">
-                <button type="button" class="adminPageButton" id="">유저관리</button>
+                <button type="button" class="adminPageButton btn btn-outline-dark btn-lg" id="userPageBtn">유저관리</button>
             </div>
             <div class="col-lg-3">
-                <button type="button" class="adminPageButton" id="">상품관리</button>
-            </div>
-            <div class="col-lg-3">
-                <button type="button" class="adminPageButton" id=""></button>
-            </div>
-            <div class="col-lg-3">
-                <button type="button" class="adminPageButton" id=""></button>
+                <button type="button" class="adminPageButton btn btn-outline-dark btn-lg"
+                    id="productPageBtn">상품관리</button>
             </div>
         </div>
         <hr>
     </div>
+
+    <!-- 유저관리 페이지 -->
+    <div class="modal fade" id="userListmodal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">유저관리</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <table id="userListTable" class="table">
+                    </table>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- 상품 페이지 -->
+    <div class="modal fade" id="productListmodal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">상품관리</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
     <footer>
 
     </footer>
 
     <script>
         $(function () {
+            'use strict'
+
+            $.extend(true, $.fn.dataTable.defaults, {
+                searching: false,
+                info: false,
+                paging: false,
+                ordering: false,
+            });
+
+            let userListTable = $("#userListTable").DataTable({
+                columnDefs: [{
+                    targets: 0,
+                    title: "번호",
+                    data: "idx",
+                }, {
+                    targets: 1,
+                    title: "유저아이디",
+                    data: "userId",
+                }, {
+                    targets: 2,
+                    title: "유저이름",
+                    data: "userName",
+                }, {
+                    targets: 3,
+                    title: "이메일",
+                    data: "email",
+                }, ]
+            });
+
+            const getUserList = function () {
+                let url = `/getUserList`;
+                let promise = requestGet(url);
+                promise.then(function (res) {
+                    let data = res.map((elem, idx) => {
+                        return {
+                            'idx': idx + 1,
+                            'userId': elem.userId,
+                            'userName': elem.userName,
+                            'email': elem.email
+                        };
+                    });
+                    userListTable.rows.add(data).draw();
+                });
+            }
+
+            $("#userPageBtn").on("click", function () {
+                getUserList();
+                $('#userListmodal').modal('show');
+            });
+
+            $("#productPageBtn").on("click", function () {
+                $('#productListmodal').modal('show');
+            });
 
         });
     </script>
