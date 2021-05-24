@@ -30,10 +30,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").permitAll().and()
                 // 로그인 설정
                 .formLogin().loginPage("/login").usernameParameter("userId").passwordParameter("userPassword")
-                .defaultSuccessUrl("/").permitAll().and()
+                .successHandler(new LoginSuccessHandler()).permitAll().and()
                 // 로그아웃
-                // .logout().logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-                // .logoutSuccessUrl("/user/logout/result").invalidateHttpSession(true).and()
+                .logout().deleteCookies("isLogin").invalidateHttpSession(false).logoutUrl("/logout")
+                .addLogoutHandler(new CustomLogoutHandler()).and()
                 // 403 예외처리 핸들링
                 .exceptionHandling().accessDeniedPage("/");
 

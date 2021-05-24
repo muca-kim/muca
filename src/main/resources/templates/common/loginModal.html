@@ -18,7 +18,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
-                <form action="/login" method="POST">
+                <form id="loginForm" action="/login" method="POST">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="textarea_id" class="control-label">아이디</label>
@@ -79,13 +79,54 @@
     </div><!-- /.modal -->
 
     <script>
-        const FAIL = 0;
-        const SUCCESS = 1;
         $(function () {
             'use strict';
 
+            const FAIL = 0;
+            const SUCCESS = 1;
+            const NOT_LOGIN = "0";
+            const LOGIN = "1";
+            const LOGIN_KEY = "isLogin";
+
+            const getCookie = function () {
+                const array = document.cookie.split(";");
+                if (array) {
+                    for (let cookie of array) {
+                        if (cookie.indexOf(LOGIN_KEY) === 0) {
+                            let idx = cookie.indexOf("=");
+                            return cookie.substr(idx + 1);
+                        }
+                    }
+                }
+                return NOT_LOGIN;
+            }
+
+            const checkLogin = function () {
+                if (getCookie() == LOGIN) {
+                    if ($("#login_button").text() == "로그인") {
+                        $("#login_button").text("로그아웃");
+                    }
+                }
+            }
+
+            checkLogin();
+
+            const changeFormAction = function () {
+                if (getCookie() == LOGIN) {
+                    $("#loginForm").attr("action", "/logout");
+                } else {
+                    $("#loginForm").attr("action", "/login");
+                }
+            }
+
+            changeFormAction();
+
             $("#login_button").on("click", function () {
-                $('#login_modal').modal('show');
+                if (getCookie() == LOGIN) {
+                    $("#login").click();
+                } else {
+                    $('#login_modal').modal('show');
+                }
             });
 
             $("#entry_request_modal").on("click", function () {
